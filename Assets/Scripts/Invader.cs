@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Invader : MonoBehaviour
 {
     public Sprite[] animationSprites;
 
