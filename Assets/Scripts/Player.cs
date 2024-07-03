@@ -29,6 +29,15 @@ public class player : MonoBehaviour
         if (laser == null && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))) {
             laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
         }
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Missile") ||
+            other.gameObject.layer == LayerMask.NameToLayer("Invader")) {
+            this.gameObject.SetActive(false);
+        }
     }
     
 }
