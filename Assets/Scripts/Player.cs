@@ -6,6 +6,8 @@ public class player : MonoBehaviour
 {
     
     public float speed = 5.0f;
+    public Projectile laserPrefab;
+    private Projectile laser;
 
     private void Update()
     {
@@ -23,5 +25,10 @@ public class player : MonoBehaviour
         position.x = Mathf.Clamp(position.x, leftEdge.x, rightEdge.x);
 
         transform.position = position;
+
+        if (laser == null && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))) {
+            laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
+        }
     }
+    
 }

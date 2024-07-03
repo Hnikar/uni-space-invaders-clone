@@ -13,7 +13,6 @@ public class Invaders : MonoBehaviour
     public int rows = 5;
     public int columns = 11;
 
-
     private void Awake()
     {
         initialPosition = transform.position;

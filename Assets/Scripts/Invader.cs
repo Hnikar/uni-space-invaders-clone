@@ -32,4 +32,8 @@ public class Invader : MonoBehaviour
         _spriteRenderer.sprite = this.animationSprites[_animationFrame];
     }
     
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        this.gameObject.SetActive(false);
+    }
 }
