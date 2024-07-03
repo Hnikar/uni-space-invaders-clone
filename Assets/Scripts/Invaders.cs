@@ -13,6 +13,10 @@ public class Invaders : MonoBehaviour
     public int rows = 5;
     public int columns = 11;
 
+    [Header("Missiles")]
+    public Projectile missilePrefab;
+    public float missileSpawnRate = 1f;
+
     private void Awake()
     {
         initialPosition = transform.position;
@@ -37,6 +41,33 @@ public class Invaders : MonoBehaviour
                 Vector3 position = rowPosition;
                 position.x += 2f * j;
                 invader.transform.localPosition = position;
+            }
+        }
+    }
+
+      private void Start()
+    {
+        InvokeRepeating(nameof(MissileAttack), missileSpawnRate, missileSpawnRate);
+    }
+
+    private void MissileAttack()
+    {
+        int amountAlive = GetAliveCount();
+
+        if (amountAlive == 0) {
+            return;
+        }
+
+        foreach (Transform invader in transform)
+        {
+            if (!invader.gameObject.activeInHierarchy) {
+                continue;
+            }
+
+            if (Random.value < (1f / amountAlive))
+            {
+                Instantiate(missilePrefab, invader.position, Quaternion.identity);
+                break;
             }
         }
     }
