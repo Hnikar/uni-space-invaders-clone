@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Invaders : MonoBehaviour
@@ -36,8 +38,10 @@ public class Invaders : MonoBehaviour
 
             for (int j = 0; j < columns; j++)
             {
+                // Create a new invader and parent it to this transform
                 Invader invader = Instantiate(prefabs[i], transform);
 
+                // Calculate and set the position of the invader in the row
                 Vector3 position = rowPosition;
                 position.x += 2f * j;
                 invader.transform.localPosition = position;
@@ -45,7 +49,7 @@ public class Invaders : MonoBehaviour
         }
     }
 
-      private void Start()
+    private void Start()
     {
         InvokeRepeating(nameof(MissileAttack), missileSpawnRate, missileSpawnRate);
     }

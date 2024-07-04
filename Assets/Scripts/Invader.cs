@@ -1,39 +1,45 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Invader : MonoBehaviour
 {
-    public Sprite[] animationSprites;
+    public Sprite[] animationSprites = new Sprite[0];
+    public float animationTime = 1f;
+    public int score = 10;
 
-    public float animationTime = 1.0f;
-
-
-    private SpriteRenderer _spriteRenderer;
-
-    private int _animationFrame;
+    private SpriteRenderer spriteRenderer;
+    private int animationFrame;
 
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = animationSprites[0];
     }
 
     private void Start()
     {
-        InvokeRepeating(nameof(AnimateSpite), this.animationTime, this.animationTime);
+        InvokeRepeating(nameof(AnimateSprite), animationTime, animationTime);
     }
 
-    private void AnimateSpite()
+    private void AnimateSprite()
     {
-        _animationFrame++;
+        animationFrame++;
 
-        if (_animationFrame >= this.animationSprites.Length) {
-            _animationFrame = 0;
+        if (animationFrame >= animationSprites.Length) {
+            animationFrame = 0;
         }
 
-        _spriteRenderer.sprite = this.animationSprites[_animationFrame];
+        spriteRenderer.sprite = animationSprites[animationFrame];
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        this.gameObject.SetActive(false);
+        if (other.gameObject.layer == LayerMask.NameToLayer("Laser")) {
+            GameManager.Instance.OnInvaderKilled(this);
+        } else if (other.gameObject.layer == LayerMask.NameToLayer("Boundary")) {
+            GameManager.Instance.OnBoundaryReached();
+        }
     }
+
 }

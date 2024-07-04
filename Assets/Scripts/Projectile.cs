@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public Vector3 direction;
+    public Vector3 direction = Vector3.up;
+    public float speed = 20f;
 
-    public float speed;
+    private new BoxCollider2D collider;
 
-     
-    private void Update()
+    private void Awake()
     {
-        this.transform.position += this.speed * Time.deltaTime * this.direction;
+        collider = GetComponent<BoxCollider2D>();
     }
 
-       private void OnTriggerEnter2D(Collider2D other)
+    private void Update()
+    {
+        transform.position += speed * Time.deltaTime * direction;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         CheckCollision(other);
     }
@@ -26,6 +31,11 @@ public class Projectile : MonoBehaviour
 
     private void CheckCollision(Collider2D other)
     {
-        Destroy(gameObject);
+        Bunker bunker = other.gameObject.GetComponent<Bunker>();
+
+        if (bunker == null || bunker.CheckCollision(collider, transform.position)) {
+            Destroy(gameObject);
+        }
     }
+
 }
