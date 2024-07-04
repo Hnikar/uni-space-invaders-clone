@@ -26,13 +26,17 @@ public class MysteryShip : MonoBehaviour
 
     private void Update()
     {
-        if (!spawned) {
+        if (!spawned)
+        {
             return;
         }
 
-        if (direction == 1) {
+        if (direction == 1)
+        {
             MoveRight();
-        } else {
+        }
+        else
+        {
             MoveLeft();
         }
     }
@@ -41,7 +45,8 @@ public class MysteryShip : MonoBehaviour
     {
         transform.position += Vector3.right * speed * Time.deltaTime;
 
-        if (transform.position.x >= rightDestination.x) {
+        if (transform.position.x >= rightDestination.x)
+        {
             Despawn();
         }
     }
@@ -50,7 +55,8 @@ public class MysteryShip : MonoBehaviour
     {
         transform.position += Vector3.left * speed * Time.deltaTime;
 
-        if (transform.position.x <= leftDestination.x) {
+        if (transform.position.x <= leftDestination.x)
+        {
             Despawn();
         }
     }
@@ -59,9 +65,12 @@ public class MysteryShip : MonoBehaviour
     {
         direction *= -1;
 
-        if (direction == 1) {
+        if (direction == 1)
+        {
             transform.position = leftDestination;
-        } else {
+        }
+        else
+        {
             transform.position = rightDestination;
         }
 
@@ -72,9 +81,12 @@ public class MysteryShip : MonoBehaviour
     {
         spawned = false;
 
-        if (direction == 1) {
+        if (direction == 1)
+        {
             transform.position = rightDestination;
-        } else {
+        }
+        else
+        {
             transform.position = leftDestination;
         }
 
@@ -89,5 +101,4 @@ public class MysteryShip : MonoBehaviour
             GameManager.Instance.OnMysteryShipKilled(this);
         }
     }
-
 }

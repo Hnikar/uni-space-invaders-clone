@@ -7,9 +7,14 @@ public sealed class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [SerializeField] private GameObject gameOverUI;
-    [SerializeField] private Text scoreText;
-    [SerializeField] private Text livesText;
+    [SerializeField]
+    private GameObject gameOverUI;
+
+    [SerializeField]
+    private Text scoreText;
+
+    [SerializeField]
+    private Text livesText;
 
     private Player player;
     private Invaders invaders;
@@ -24,9 +29,12 @@ public sealed class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null) {
+        if (Instance != null)
+        {
             DestroyImmediate(gameObject);
-        } else {
+        }
+        else
+        {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
@@ -44,7 +52,8 @@ public sealed class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (lives <= 0 && Input.GetKeyDown(KeyCode.Return)) {
+        if (lives <= 0 && Input.GetKeyDown(KeyCode.Return))
+        {
             NewGame();
         }
     }
@@ -63,7 +72,8 @@ public sealed class GameManager : MonoBehaviour
         invaders.ResetInvaders();
         invaders.gameObject.SetActive(true);
 
-        for (int i = 0; i < bunkers.Length; i++) {
+        for (int i = 0; i < bunkers.Length; i++)
+        {
             bunkers[i].ResetBunker();
         }
 
@@ -102,9 +112,12 @@ public sealed class GameManager : MonoBehaviour
 
         player.gameObject.SetActive(false);
 
-        if (lives > 0) {
+        if (lives > 0)
+        {
             Invoke(nameof(NewRound), 1f);
-        } else {
+        }
+        else
+        {
             GameOver();
         }
     }
@@ -115,7 +128,8 @@ public sealed class GameManager : MonoBehaviour
 
         SetScore(score + invader.score);
 
-        if (invaders.GetAliveCount() == 0) {
+        if (invaders.GetAliveCount() == 0)
+        {
             NewRound();
         }
     }
@@ -134,5 +148,4 @@ public sealed class GameManager : MonoBehaviour
             OnPlayerKilled(player);
         }
     }
-
 }

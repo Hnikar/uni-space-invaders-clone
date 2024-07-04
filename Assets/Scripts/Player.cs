@@ -13,10 +13,12 @@ public class Player : MonoBehaviour
     {
         Vector3 position = transform.position;
 
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        {
             position.x -= speed * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) {
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
             position.x += speed * Time.deltaTime;
         }
 
@@ -26,17 +28,20 @@ public class Player : MonoBehaviour
 
         transform.position = position;
 
-        if (laser == null && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))) {
+        if (laser == null && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)))
+        {
             laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Missile") ||
-            other.gameObject.layer == LayerMask.NameToLayer("Invader")) {
+        if (
+            other.gameObject.layer == LayerMask.NameToLayer("Missile")
+            || other.gameObject.layer == LayerMask.NameToLayer("Invader")
+        )
+        {
             GameManager.Instance.OnPlayerKilled(this);
         }
     }
-
 }

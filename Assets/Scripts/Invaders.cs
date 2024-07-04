@@ -58,13 +58,15 @@ public class Invaders : MonoBehaviour
     {
         int amountAlive = GetAliveCount();
 
-        if (amountAlive == 0) {
+        if (amountAlive == 0)
+        {
             return;
         }
 
         foreach (Transform invader in transform)
         {
-            if (!invader.gameObject.activeInHierarchy) {
+            if (!invader.gameObject.activeInHierarchy)
+            {
                 continue;
             }
 
@@ -91,7 +93,8 @@ public class Invaders : MonoBehaviour
 
         foreach (Transform invader in transform)
         {
-            if (!invader.gameObject.activeInHierarchy) {
+            if (!invader.gameObject.activeInHierarchy)
+            {
                 continue;
             }
 
@@ -122,7 +125,8 @@ public class Invaders : MonoBehaviour
         direction = Vector3.right;
         transform.position = initialPosition;
 
-        foreach (Transform invader in transform) {
+        foreach (Transform invader in transform)
+        {
             invader.gameObject.SetActive(true);
         }
     }
@@ -133,12 +137,12 @@ public class Invaders : MonoBehaviour
 
         foreach (Transform invader in transform)
         {
-            if (invader.gameObject.activeSelf) {
+            if (invader.gameObject.activeSelf)
+            {
                 count++;
             }
         }
 
         return count;
     }
-
 }

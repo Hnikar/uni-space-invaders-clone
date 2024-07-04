@@ -38,7 +38,12 @@ public class Bunker : MonoBehaviour
         copy.SetPixels32(source.GetPixels32());
         copy.Apply();
 
-        Sprite sprite = Sprite.Create(copy, spriteRenderer.sprite.rect, new Vector2(0.5f, 0.5f), spriteRenderer.sprite.pixelsPerUnit);
+        Sprite sprite = Sprite.Create(
+            copy,
+            spriteRenderer.sprite.rect,
+            new Vector2(0.5f, 0.5f),
+            spriteRenderer.sprite.pixelsPerUnit
+        );
         spriteRenderer.sprite = sprite;
     }
 
@@ -46,16 +51,17 @@ public class Bunker : MonoBehaviour
     {
         Vector2 offset = other.size / 2;
 
-        return Splat(hitPoint) ||
-               Splat(hitPoint + (Vector3.down * offset.y)) ||
-               Splat(hitPoint + (Vector3.up * offset.y)) ||
-               Splat(hitPoint + (Vector3.left * offset.x)) ||
-               Splat(hitPoint + (Vector3.right * offset.x));
+        return Splat(hitPoint)
+            || Splat(hitPoint + (Vector3.down * offset.y))
+            || Splat(hitPoint + (Vector3.up * offset.y))
+            || Splat(hitPoint + (Vector3.left * offset.x))
+            || Splat(hitPoint + (Vector3.right * offset.x));
     }
 
     private bool Splat(Vector3 hitPoint)
     {
-        if (!CheckPoint(hitPoint, out int px, out int py)) {
+        if (!CheckPoint(hitPoint, out int px, out int py))
+        {
             return false;
         }
 
@@ -102,9 +108,9 @@ public class Bunker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Invader")) {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Invader"))
+        {
             gameObject.SetActive(false);
         }
     }
-
 }
