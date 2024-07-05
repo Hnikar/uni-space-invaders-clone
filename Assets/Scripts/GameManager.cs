@@ -106,6 +106,11 @@ public sealed class GameManager : MonoBehaviour
         livesText.text = this.lives.ToString();
     }
 
+    private IEnumerator SpawnDelay(){
+        yield return new WaitForSeconds(3);
+        Respawn();
+    }
+
     public void OnPlayerKilled(Player player)
     {
         SetLives(lives - 1);
@@ -114,7 +119,7 @@ public sealed class GameManager : MonoBehaviour
 
         if (lives > 0)
         {
-            Respawn();
+            StartCoroutine(SpawnDelay());
         }
         else
         {
