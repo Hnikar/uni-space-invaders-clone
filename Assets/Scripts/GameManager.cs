@@ -114,7 +114,7 @@ public sealed class GameManager : MonoBehaviour
 
         if (lives > 0)
         {
-            Invoke(nameof(NewRound), 1f);
+            Respawn();
         }
         else
         {

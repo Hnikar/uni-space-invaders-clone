@@ -173,4 +173,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: {x: 0, y: -1, z: 0}
   speed: 20
-  projectileSFX: {fileID: 8300000, guid: 496e9f5b315b1284a9952e1c0a0ff4de, type: 3}
+  projectileSFX: {fileID: 8300000, guid: 8dad968a5bbb17844a6f904f8e529ccb, type: 3}
