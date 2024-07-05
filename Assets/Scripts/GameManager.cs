@@ -11,6 +11,9 @@ public sealed class GameManager : MonoBehaviour
     private GameObject gameOverUI;
 
     [SerializeField]
+    private GameObject StageClearUI;
+
+    [SerializeField]
     private Text scoreText;
 
     [SerializeField]
@@ -68,6 +71,8 @@ public sealed class GameManager : MonoBehaviour
     private void NewGame()
     {
         gameOverUI.SetActive(false);
+        StageClearUI.SetActive(false);
+        player.gameObject.SetActive(true);
         SetScore(0);
         SetLives(3);
         for (int i = 0; i < bunkers.Length; i++)
@@ -77,12 +82,22 @@ public sealed class GameManager : MonoBehaviour
         NewRound();
     }
 
-    private void NewRound()
+    private IEnumerator NewRoundCoroutine()
     {
+        yield return new WaitForSeconds(3f);
+
+        StageClearUI.SetActive(false);
+        Respawn();
         invaders.ResetInvaders();
         invaders.gameObject.SetActive(true);
+    }
 
+    private void NewRound()
+    {
+        StageClearUI.SetActive(false);
         Respawn();
+        invaders.ResetInvaders();
+        invaders.gameObject.SetActive(true);
     }
 
     private void Respawn()
@@ -112,7 +127,7 @@ public sealed class GameManager : MonoBehaviour
         if(savedHighscore < score)
         {
             savedHighscore = score;
-            highScoreEndText.text = ("Highscore: " + savedHighscore.ToString().PadLeft(4, '0'));
+            highScoreEndText.text = ("New Highscore: " + savedHighscore.ToString().PadLeft(4, '0'));
             highScoreText.text = (savedHighscore.ToString().PadLeft(4, '0'));
         }
         else highScoreEndText.text = null;
@@ -125,7 +140,7 @@ public sealed class GameManager : MonoBehaviour
         livesText.text = this.lives.ToString();
     }
 
-    private IEnumerator SpawnDelay(){
+    private IEnumerator RespawnDelay(){
         yield return new WaitForSeconds(3);
         Respawn();
     }
@@ -138,7 +153,7 @@ public sealed class GameManager : MonoBehaviour
 
         if (lives > 0)
         {
-            StartCoroutine(SpawnDelay());
+            StartCoroutine(RespawnDelay());
         }
         else
         {
@@ -154,7 +169,10 @@ public sealed class GameManager : MonoBehaviour
         if (invaders.GetAliveCount() == 0)
         {
             score += 1000;
-            NewRound();
+            SetScore(score + invader.score);
+            player.gameObject.SetActive(false);
+            StageClearUI.SetActive(true);
+            StartCoroutine(NewRoundCoroutine());
         }
     }
 
@@ -169,7 +187,8 @@ public sealed class GameManager : MonoBehaviour
         {
             invaders.gameObject.SetActive(false);
 
-            OnPlayerKilled(player);
+            player.gameObject.SetActive(false);
+            GameOver();
         }
     }
 }
