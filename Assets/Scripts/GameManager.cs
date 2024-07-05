@@ -27,6 +27,13 @@ public sealed class GameManager : MonoBehaviour
     public int Score => score;
     public int Lives => lives;
 
+    private int savedHighscore;
+
+    [SerializeField] 
+    private Text highScoreEndText;
+    [SerializeField] 
+    private Text highScoreText;
+
     private void Awake()
     {
         if (Instance != null)
@@ -61,9 +68,12 @@ public sealed class GameManager : MonoBehaviour
     private void NewGame()
     {
         gameOverUI.SetActive(false);
-
         SetScore(0);
         SetLives(3);
+        for (int i = 0; i < bunkers.Length; i++)
+        {
+            bunkers[i].ResetBunker();
+        }
         NewRound();
     }
 
@@ -71,11 +81,6 @@ public sealed class GameManager : MonoBehaviour
     {
         invaders.ResetInvaders();
         invaders.gameObject.SetActive(true);
-
-        for (int i = 0; i < bunkers.Length; i++)
-        {
-            bunkers[i].ResetBunker();
-        }
 
         Respawn();
     }
@@ -90,6 +95,7 @@ public sealed class GameManager : MonoBehaviour
 
     private void GameOver()
     {
+        SetHighscore(score);
         gameOverUI.SetActive(true);
         invaders.gameObject.SetActive(false);
     }
@@ -98,6 +104,19 @@ public sealed class GameManager : MonoBehaviour
     {
         this.score = score;
         scoreText.text = score.ToString().PadLeft(4, '0');
+    }
+
+    private void SetHighscore(int score)
+    {
+        this.score = score;
+        if(savedHighscore < score)
+        {
+            savedHighscore = score;
+            highScoreEndText.text = ("Highscore: " + savedHighscore.ToString().PadLeft(4, '0'));
+            highScoreText.text = (savedHighscore.ToString().PadLeft(4, '0'));
+        }
+        else highScoreEndText.text = null;
+
     }
 
     private void SetLives(int lives)
@@ -130,14 +149,12 @@ public sealed class GameManager : MonoBehaviour
     public void OnInvaderKilled(Invader invader)
     {
         invader.gameObject.SetActive(false);
-
+       
         SetScore(score + invader.score);
-
         if (invaders.GetAliveCount() == 0)
         {
+            score += 1000;
             NewRound();
-            //CONGRATULATIONS ////////////////////////////////////////
-            // Click to play again
         }
     }
 
