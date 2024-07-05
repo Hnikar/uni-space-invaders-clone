@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public Projectile laserPrefab;
 
     private Projectile laser;
+        
+    [SerializeField] private AudioClip ExplosionSFX;
 
     private void Update()
     {
@@ -41,6 +43,7 @@ public class Player : MonoBehaviour
             || other.gameObject.layer == LayerMask.NameToLayer("Invader")
         )
         {
+            SFXManager.instance.PlaySFX(ExplosionSFX,transform);
             GameManager.Instance.OnPlayerKilled(this);
         }
     }

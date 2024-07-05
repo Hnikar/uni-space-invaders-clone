@@ -7,7 +7,13 @@ public class Projectile : MonoBehaviour
     public Vector3 direction = Vector3.up;
     public float speed = 20f;
 
+    [SerializeField] private AudioClip projectileSFX;
+
     private new BoxCollider2D collider;
+
+    private void Start(){
+        SFXManager.instance.PlaySFX(projectileSFX, transform);
+    }
 
     private void Awake()
     {

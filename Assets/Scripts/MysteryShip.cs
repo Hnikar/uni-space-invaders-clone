@@ -13,6 +13,7 @@ public class MysteryShip : MonoBehaviour
     private int direction = -1;
     private bool spawned;
 
+
     private void Start()
     {
         Vector3 leftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero);
@@ -61,8 +62,12 @@ public class MysteryShip : MonoBehaviour
         }
     }
 
+    [SerializeField] private AudioClip SFX;
+
     private void Spawn()
     {
+        SFXManager.instance.PlaySFX(SFX, transform);
+
         direction *= -1;
 
         if (direction == 1)

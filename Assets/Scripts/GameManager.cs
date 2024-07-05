@@ -131,6 +131,8 @@ public sealed class GameManager : MonoBehaviour
         if (invaders.GetAliveCount() == 0)
         {
             NewRound();
+            //CONGRATULATIONS ////////////////////////////////////////
+            // Click to play again
         }
     }
 

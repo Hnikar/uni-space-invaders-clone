@@ -40,13 +40,13 @@ public class Music : MonoBehaviour
     {
         if(!isOn)
         {
+            SFXManager.instance.sfxVolume = 1;
             PlayerPrefs.SetInt("music", 0);
-          
         }
         else if (isOn)
         {
+            SFXManager.instance.sfxVolume= 0;
             PlayerPrefs.SetInt("music", 1);
-           
         }
     }
     
