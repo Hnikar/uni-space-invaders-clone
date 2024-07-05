@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: 468c673dbecf2dd4c894e84fcb176e7b
   - enabled: 1
-    path: Assets/Scenes/Space Invaders.unity
+    path: Assets/Scenes/Alian Annihilation.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

@@ -9,7 +9,7 @@ public class TitleScript : MonoBehaviour
         if (Input.anyKeyDown)
         {
             // Загружаем сцену "Space Invaders"
-            SceneManager.LoadScene("Space Invaders");
+            SceneManager.LoadScene("Alian Annihilation");
         }
     }
 }
